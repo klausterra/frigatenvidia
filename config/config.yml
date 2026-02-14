@@ -1,98 +1,5 @@
 mqtt:
   enabled: true
-<<<<<<< HEAD
-  host: YOUR_MQTT_HOST
-  port: 1883
-  user: YOUR_MQTT_USER
-  password: YOUR_MQTT_PASSWORD
-
-# MODELO (Define o arquivo ONNX que o Docker baixou)
-model:
-  model_type: yolo-generic
-  width: 640    # Match com yolov7-640
-  height: 640   # Match com yolov7-640
-  input_tensor: nchw
-  input_dtype: float
-  path: /config/yolov8n.onnx  # Modelo mais leve (YOLOv8 Nano)
-  labelmap_path: /labelmap/coco-80.txt
-  input_pixel_format: rgb
-
-# DETECTOR (Usa ONNX, que ativa TensorRT automaticamente na sua imagem)
-detectors:
-  nvidia:
-    type: onnx
-    device: auto
-go2rtc:
-  streams:
-    direita:
-      - rtsp://YOUR_USER:YOUR_PASS@YOUR_CAMERA_IP:554/cam/realmonitor?channel=1&subtype=0 # Alta Resolução
-    esquerda:
-      - rtsp://YOUR_USER:YOUR_PASS@YOUR_CAMERA_IP:554/cam/realmonitor?channel=1&subtype=0 # Alta Resolução
-    garagem:
-      - rtsp://YOUR_USER:YOUR_PASS@YOUR_CAMERA_IP:554/cam/realmonitor?channel=1&subtype=0
-    living:
-      - rtsp://YOUR_USER:YOUR_PASS@YOUR_CAMERA_IP:554/cam/realmonitor?channel=2&subtype=0
-    escritorio:
-      - rtsp://admin:Kqt7722_@192.168.7.35:554/cam/realmonitor?channel=1&subtype=0
-cameras:
-
-  escritorio: # Nome da câmera
-    ffmpeg:
-      hwaccel_args: preset-nvidia-h264 # Usa sua GPU RTX 4000
-      inputs:
-        - path: 
-            rtsp://admin:Kqt7722_@192.168.7.35:554/cam/realmonitor?channel=1&subtype=1
-          roles:
-            - detect # Fluxo SD (Leve) para a IA
-        - path: 
-            rtsp://admin:Kqt7722_@192.168.7.35:554/cam/realmonitor?channel=1&subtype=0
-          roles:
-            - record # Fluxo HD (Pesado) para gravação
-    detect:
-      enabled: true
-      width: 352
-      height: 240
-      fps: 5
-    objects:
-      track:
-        - person
-        - car
-    zones:
-      Tudo:
-        coordinates: 0,0,1,0,1,1,0,1
-        loitering_time: 15
-        inertia: 3
-    motion:
-      threshold: 40
-      contour_area: 50
-      improve_contrast: true
-    review:
-      alerts:
-        required_zones: Tudo
-      detections: {}
-    notifications:
-      enabled: true
-
-
-  garagem:
-    face_recognition: # Chave corrigida
-      enabled: true
-    ffmpeg:
-      hwaccel_args: preset-nvidia-h264
-      inputs:
-        - path: 
-            rtsp://YOUR_USER:YOUR_PASS@YOUR_CAMERA_IP:554/cam/realmonitor?channel=1&subtype=1
-          roles:
-            - detect
-        - path: 
-            rtsp://YOUR_USER:YOUR_PASS@YOUR_CAMERA_IP:554/cam/realmonitor?channel=1&subtype=0
-          roles:
-            - record
-    detect:
-      enabled: true
-      width: 352
-      height: 240
-=======
   host: mqtt
   port: 1883
   user: frigate
@@ -105,7 +12,7 @@ model:
   input_tensor: nchw
   input_pixel_format: rgb
   input_dtype: float
-  path: /config/model_cache/yolov9-c-640.onnx
+  path: /config/model_cache/yolov9-s-640.onnx
   labelmap_path: /labelmap/coco-80.txt
 
 detectors:
@@ -124,201 +31,16 @@ cameras:
     detect:
       width: 1280
       height: 720
->>>>>>> 28a3c43 (Initial public example)
       fps: 5
     objects:
       track:
         - person
         - car
-<<<<<<< HEAD
-      filters:
-        motorcycle:
-          min_area: 4000 # Uma moto real ocupará mais pixels que os reflexos no chão
-        bicycle:
-          min_area: 3000
-
-    zones:
-      Tudo:
-        coordinates: 0,0.112,1,0.124,0.998,0.991,0.012,0.992
-        loitering_time: 15
-        inertia: 3
-    motion:
-      mask: 0.472,0.024,0.911,0.016,0.915,0.112,0.475,0.113
-      threshold: 40
-      contour_area: 50
-      improve_contrast: true
-    review:
-      alerts:
-        required_zones: Tudo
-      detections: {}
-    notifications:
-      enabled: true
-
-
-  living:
-    face_recognition: # Chave corrigida
-      enabled: true
-    ffmpeg:
-      hwaccel_args: preset-nvidia-h264
-      inputs:
-        - path: 
-            rtsp://YOUR_USER:YOUR_PASS@YOUR_CAMERA_IP:554/cam/realmonitor?channel=2&subtype=1
-          roles:
-            - detect
-        - path: 
-            rtsp://YOUR_USER:YOUR_PASS@YOUR_CAMERA_IP:554/cam/realmonitor?channel=2&subtype=0
-          roles:
-            - record
-    detect:
-      enabled: true
-      width: 352
-      height: 240
-      fps: 5
-    objects:
-      track:
-        - person
-        - car
-      filters:
-        motorcycle:
-          min_area: 4000 # Uma moto real ocupará mais pixels que os reflexos no chão
-        bicycle:
-          min_area: 3000
-    zones:
-      Tudo:
-        coordinates: 0,0.11,1,0.112,1,1,0,0.99
-        loitering_time: 15
-        inertia: 3
-    motion:
-      mask: 0.462,0.018,0.924,0.019,0.925,0.106,0.461,0.103
-      threshold: 40
-      contour_area: 50
-      improve_contrast: true
-    review:
-      alerts:
-        required_zones: Tudo
-    notifications:
-      enabled: true
-
-
-  direita:
-    face_recognition: # Chave corrigida
-      enabled: true
-    ffmpeg:
-      hwaccel_args: preset-nvidia-h264
-      inputs:
-        - path: 
-            rtsp://YOUR_USER:YOUR_PASS@YOUR_CAMERA_IP:554/cam/realmonitor?channel=1&subtype=1
-          roles:
-            - detect
-        - path: 
-            rtsp://YOUR_USER:YOUR_PASS@YOUR_CAMERA_IP:554/cam/realmonitor?channel=1&subtype=0
-          roles:
-            - record
-    detect:
-      enabled: true
-      width: 704
-      height: 480
-      fps: 5
-    objects:
-      track:
-        - person
-        - car
-      filters:
-        motorcycle:
-          min_area: 4000 # Uma moto real ocupará mais pixels que os reflexos no chão
-        bicycle:
-          min_area: 3000
-      mask: 0,0,0.172,0,0.205,0.294,0.066,0.403
-    zones:
-      Calcada_Casa:
-        coordinates: 0.461,0.629,0.747,0.268,0.918,0.333,0.926,0.609,0.898,0.991
-        loitering_time: 15
-        inertia: 3
-      Calcada_2:
-        coordinates: 0.057,0.329,0.05,0.279,0.299,0.13,0.307,0.187
-        loitering_time: 15
-        inertia: 3
-    motion:
-      mask:
-        - 0.63,0.027,0.963,0.031,0.963,0.097,0.632,0.113
-        - 0.803,0.003,0.809,0.223,0.89,0.228,0.916,0.003
-        - 0.07,0.235,0.173,0.18,0.186,0.3,0.091,0.377
-      threshold: 40
-      contour_area: 30
-      improve_contrast: true
-    review:
-      alerts:
-        required_zones:
-          - Calcada_Casa
-          - Calcada_2
-    notifications:
-      enabled: true
-
-
-  esquerda:
-    face_recognition: # Chave corrigida
-      enabled: true
-    ffmpeg:
-      hwaccel_args: preset-nvidia-h264
-      inputs:
-        - path: 
-            rtsp://YOUR_USER:YOUR_PASS@YOUR_CAMERA_IP:554/cam/realmonitor?channel=1&subtype=1
-          roles:
-            - detect
-        - path: 
-            rtsp://YOUR_USER:YOUR_PASS@YOUR_CAMERA_IP:554/cam/realmonitor?channel=1&subtype=0
-          roles:
-            - record
-    detect:
-      enabled: true
-      width: 704
-      height: 480
-      fps: 5
-    objects:
-      track:
-        - person
-        - car
-      filters:
-        motorcycle:
-          min_area: 4000 # Uma moto real ocupará mais pixels que os reflexos no chão
-        bicycle:
-          min_area: 3000
-
-    zones:
-      Calcada_Casa:
-        coordinates: 0.054,0.353,0.153,0.309,0.37,0.829,0.134,0.992,0.06,0.552
-        loitering_time: 15
-        inertia: 3
-      Calcada_2:
-        coordinates: 0.697,0.144,0.702,0.057,0.956,0.202,0.932,0.3
-        loitering_time: 15
-        inertia: 3
-    motion:
-      mask:
-        - 0.659,0.043,0.988,0.039,0.99,0.104,0.667,0.094
-        - 0.058,0.19,0.431,0.173,0.431,0,0.061,0
-        - 0,0.529,0.056,0.551,0.126,0.999,0,1
-      threshold: 30
-      contour_area: 30
-      improve_contrast: true
-    review:
-      alerts:
-        required_zones:
-          - Calcada_Casa
-          - Calcada_2
-    notifications:
-      enabled: true
-record:
-  enabled: true
-  retain:
-    days: 7
-=======
 
 record:
   enabled: true
   retain:
     days: 3
->>>>>>> 28a3c43 (Initial public example)
     mode: motion
 
 snapshots:
@@ -328,29 +50,4 @@ snapshots:
   crop: true
 
 version: 0.16-0
-<<<<<<< HEAD
-semantic_search:
-  enabled: true
-  model_size: large
-face_recognition:
-  enabled: true
-  model_size: large
-lpr:
-  enabled: true
-classification:
-  bird:
-    enabled: false
-notifications:
-  enabled: true
-  email: klausqterra@gmail.com
-camera_groups:
-  Frente:
-    order: 1
-    icon: LuHouse
-    cameras:
-      - birdseye
-      - direita
-      - esquerda
-=======
 
->>>>>>> 28a3c43 (Initial public example)

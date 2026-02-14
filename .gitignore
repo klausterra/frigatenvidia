@@ -1,16 +1,8 @@
-# Exclude everything except what we want to share
-*
-!config/
-!config/config.yml
-!docker-compose.yml
-!README.md
-!.gitignore
+media/
+config/model_cache/
+*.onnx
+*.trt
+*.engine
+*.plan
+.env
 
-# Inside config
-config/*
-!config/config.yml
-model_cache/
-*.db
-*.db-shm
-*.db-wal
-.jwt_secret

@@ -1,16 +1,9 @@
 services:
   frigate:
     container_name: frigate
-<<<<<<< HEAD
-    privileged: true
-    restart: unless-stopped
-    image: ghcr.io/blakeblackshear/frigate:stable-tensorrt
-    shm_size: "1gb"
-=======
     restart: unless-stopped
     image: ghcr.io/blakeblackshear/frigate:stable-tensorrt
     shm_size: "256mb"
->>>>>>> 28a3c43 (Initial public example)
     devices:
       - /dev/nvidia0:/dev/nvidia0
       - /dev/nvidiactl:/dev/nvidiactl
@@ -18,13 +11,8 @@ services:
       - /dev/nvidia-uvm-tools:/dev/nvidia-uvm-tools
     volumes:
       - /etc/localtime:/etc/localtime:ro
-<<<<<<< HEAD
-      - /opt/frigate/config:/config
-      - /var/lib/frigate/recordings:/media/frigate
-=======
       - ./config:/config
       - ./media:/media/frigate
->>>>>>> 28a3c43 (Initial public example)
       - type: tmpfs
         target: /tmp/cache
         tmpfs:
@@ -35,26 +23,6 @@ services:
       - "8555:8555"
     environment:
       TZ: "America/Sao_Paulo"
-<<<<<<< HEAD
-      FRIGATE_RTSP_PASSWORD: "YOUR_PASSWORD"
-      PLUS_API_KEY: "YOUR_PLUS_API_KEY"
-      NVIDIA_VISIBLE_DEVICES: all
-      NVIDIA_DRIVER_CAPABILITIES: compute,video,utility
-      YOLO_MODELS: yolov9c    # <--- CORRIGIDO (Sem traço, com dois pontos)
-      USE_FP16: "true"           # <--- CORRIGIDO (Sem traço, com dois pontos)
-
-  tunnel:
-    container_name: cloudflared
-    image: cloudflare/cloudflared:latest
-    restart: unless-stopped
-    command: tunnel run --token YOUR_CLOUDFLARE_TOKEN
-    ports:
-      - 3000:3000
-    dns:
-      - 1.1.1.1
-=======
       FRIGATE_RTSP_PASSWORD: "CHANGE_ME"
       NVIDIA_VISIBLE_DEVICES: all
       NVIDIA_DRIVER_CAPABILITIES: compute,video,utility
-
->>>>>>> 28a3c43 (Initial public example)

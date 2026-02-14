@@ -6,7 +6,7 @@ Este repositório é um exemplo público e redigido para rodar o Frigate usando 
 
 - Usa a imagem `ghcr.io/blakeblackshear/frigate:stable-tensorrt`.
 - Usa detector `onnx`; na imagem `-tensorrt`, o Frigate usa TensorRT automaticamente quando possível.
-- Aponta o `model.path` para um modelo YOLOv9 em formato ONNX (`/config/model_cache/yolov9-c-640.onnx`).
+- Aponta o `model.path` para um modelo YOLOv9 em formato ONNX (`/config/model_cache/yolov9-s-640.onnx`).
 
 ## Pré-requisitos
 
@@ -21,7 +21,7 @@ Este repositório é um exemplo público e redigido para rodar o Frigate usando 
 
 ## Como usar
 
-1. Coloque o modelo em `config/model_cache/yolov9-c-640.onnx`.
+1. Coloque o modelo em `config/model_cache/yolov9-s-640.onnx`.
 2. Ajuste `mqtt.*` e as câmeras (`cameras.*.ffmpeg.inputs[].path`).
 3. Troque os valores `CHANGE_ME`.
 4. Suba o container:
